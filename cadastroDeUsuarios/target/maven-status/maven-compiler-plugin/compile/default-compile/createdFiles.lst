@@ -1,0 +1,10 @@
+mss/cadastroDeUsuarios/adress/Address.class
+mss/cadastroDeUsuarios/adress/AddressService.class
+mss/cadastroDeUsuarios/user/UserService.class
+mss/cadastroDeUsuarios/user/User.class
+mss/cadastroDeUsuarios/CadastroDeUsuariosApplication.class
+mss/cadastroDeUsuarios/adress/AddressRestController.class
+mss/cadastroDeUsuarios/user/UserRepository.class
+mss/cadastroDeUsuarios/exceptions/ResourceNotFoundException.class
+mss/cadastroDeUsuarios/adress/AddressRepository.class
+mss/cadastroDeUsuarios/user/UserRestController.class
