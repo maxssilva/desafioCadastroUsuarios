@@ -9,6 +9,9 @@ import mss.cadastroDeUsuarios.user.User;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ * The type Address.
+ */
 @Entity
 @Table(name = "address")
 @Getter
@@ -41,14 +44,17 @@ public class Address {
     @JoinColumn(name = "userId")
     private User user;
 
-
-
+    /**
+     * Instantiates a new Address.
+     *
+     * @param address the address
+     */
     public Address(Address address) {
         this.street = address.getStreet();
-        this.city =  address.getCity();
+        this.city = address.getCity();
         this.cep = address.getCep();
         this.number = address.getNumber();
-        this.mainAddress =address.getMainAddress();
+        this.mainAddress = address.getMainAddress();
         this.user = address.getUser();
     }
 }

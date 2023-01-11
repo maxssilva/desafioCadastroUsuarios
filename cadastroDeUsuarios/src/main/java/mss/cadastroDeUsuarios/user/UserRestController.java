@@ -33,18 +33,6 @@ public class UserRestController {
     }
 
     /**
-     * Insert user list list.
-     *
-     * @param userList the user list
-     * @return the list
-     */
-    @PostMapping("/list")
-    @ResponseStatus(HttpStatus.CREATED)
-    public List<User> insertUserList(@Valid @RequestBody List<User> userList) {
-        return userService.addUserList(userList);
-    }
-
-    /**
      * Gets user.
      *
      * @param id the id
@@ -63,8 +51,8 @@ public class UserRestController {
      *
      * @return the list
      */
-    @GetMapping
-    public List<User> userList() {
+    @GetMapping /*RETOMAR AQUI*/
+    public List<UserResponse> userList() {
         return userService.findAllUsers();
     }
 
@@ -77,7 +65,7 @@ public class UserRestController {
      */
     @PutMapping("/{userId}")
     public ResponseEntity<User> AddAddressForUser(@Valid @PathVariable Long userId, @RequestBody Address address) {
-        userService.update(userId, address);
+        userService.addAddressToUser(userId, address);
         return ResponseEntity.ok().build();
     }
 

@@ -4,10 +4,10 @@ import mss.cadastroDeUsuarios.adress.Address;
 import mss.cadastroDeUsuarios.adress.AddressRepository;
 import mss.cadastroDeUsuarios.adress.AddressService;
 import mss.cadastroDeUsuarios.exceptions.BusinessException;
-import mss.cadastroDeUsuarios.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,23 +43,18 @@ public class UserService {
      * @return the user
      */
     public User findUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+        return userRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("Usuário não encontrado"));
     }
 
-//    public User update(Long userId, Address address) {
-//        User userFound = findUserById(userId);
-//        address.setUser(userFound);
-//        userFound.getAdressList().add(new Address(address));
-//        if(addressService.validateAddressPresent(address)){
-//            setFalseAllMainAddress(userId);
-//            return userRepository.save(userFound);
-//        }
-//        throw new BusinessException("Este endereço já está atribuido a este usuário");
-//    }
-
-
-    /*deixar passar um endereço secundário sem setar o endereço principal já cadastrado*/
-    public User update(Long userId, Address address) {
+    /**
+     * Update user.
+     *
+     * @param userId  the user id
+     * @param address the address
+     * @return the user
+     */
+    public User addAddressToUser(Long userId, Address address) {
         Boolean addressFound = addressService.validateAddressPresent(userId, address);
         Address address1 = addressService.getAddressByAddress(address, userId);
         User userFound = findUserById(userId);
@@ -72,7 +67,10 @@ public class UserService {
         if (!addressFound) {
             address.setUser(userFound);
             userFound.getAdressList().add(new Address(address));
-            setFalseAllMainAddress(userId);
+            if (address.getMainAddress()) {
+                setFalseAllMainAddress(userId);
+            }
+
             return userRepository.save(userFound);
         }
 
@@ -84,22 +82,20 @@ public class UserService {
      *
      * @return the list
      */
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
+    public List<UserResponse> findAllUsers() {
+        List<User> userList = userRepository.findAll();
+        List<UserResponse> userResponseList = new ArrayList<>();
+        userList.forEach(user -> userResponseList.add(UserResponse.convert(user)));
+        return userResponseList;
     }
+
 
     /**
-     * Add user list.
+     * Sets false all main address.
      *
-     * @param userList the user list
-     * @return the list
+     * @param userId the user id
      */
-    public List<User> addUserList(List<User> userList) {
-        userList.forEach(user -> userRepository.save(user));
-        return userList;
-    }
-
-    public void setFalseAllMainAddress(Long userId) {
+    private void setFalseAllMainAddress(Long userId) {
         List<Address> addressList = addressService.getAddressList(userId);
         addressList.forEach(address -> addressService.setFalseMainAddress(address.getId()));
     }

@@ -1,6 +1,8 @@
 package mss.cadastroDeUsuarios.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import mss.cadastroDeUsuarios.adress.Address;
 
@@ -14,11 +16,12 @@ import java.util.Objects;
 /**
  * The type User.
  */
-
 @Entity
 @Table(name = "user")
 @Getter
+@AllArgsConstructor
 @Setter
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,16 +33,9 @@ public class User {
     @NotNull(message = "Informe a data de nascimento")
     @Column(name = "birthday")
     private Date birthday;
-    /*buscar significado/referencia anotações*/
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> adressList = new ArrayList<>();
-
-
-//    public void addAdrees(Address address){
-//        this.addressList.add(address);
-//        address.setUser(this);
-//    }
-
 
     @Override
     public boolean equals(Object o) {
