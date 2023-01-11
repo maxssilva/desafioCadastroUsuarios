@@ -1,4 +1,4 @@
-# desafioCadastroUsuarios
+desafioCadastroUsuarios
 
 Perguntas realizadas e respostas:
 Durante a implementação de uma nova funcionalidade de software solicitada, quais critérios você avalia e implementa para garantia de qualidade de software?
@@ -7,6 +7,8 @@ será realizada, quais classes/entidades/métodos ela irá consumir e se outras 
 as premissas do clean code, pensando no reaproveitamento, escalabilidade e manutenção do código, após o desenvolvimento da funcinoalidade testo o seu comportamento, 
 verificando se está de acordo com o que foi solicitado e se atende aos critérios de aceite pedidos pelo cliente, em seguida desenvolvo os testes unitários/integração, 
 visando assim uma entrega de qualidade.
+
+
 
 Em qual etapa da implementação você considera a qualidade de software?
 Em todo o ciclo de desenvolvimento, desde o refinamento com o cliente até a finalização dos testes.
